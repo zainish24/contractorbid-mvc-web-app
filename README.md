@@ -154,6 +154,5 @@ This project is licensed under the MIT License.
 **⭐ If this project helps contractors streamline their bidding process, please give it a star!**
 
 ---
----
 
 *Empowering contractors with smart bidding solutions since 2024* 🏗️🚀
