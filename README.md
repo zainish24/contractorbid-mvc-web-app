@@ -1,7 +1,7 @@
 # 🏗️ Contractor Bidding Dashboard - ASP.NET MVC
 
 ![ASP.NET MVC](https://img.shields.io/badge/ASP.NET-MVC%20Web%20App-purple)
-![.NET Core](https://img.shields.io/badge/.NET-6.0-blue)
+![.NET Core](https://img.shields.io/badge/.NET-8.0-blue)
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-red)
 ![Contractor Platform](https://img.shields.io/badge/Platform-Contractor%20Bidding-green)
 
