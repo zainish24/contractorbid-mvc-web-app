@@ -1,0 +1,101 @@
+﻿@model ContractorDashboard.Models.ContractorSettings
+@{
+    ViewData["Title"] = "Bid Settings";
+}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="wow fadeIn" data-wow-delay="0.1s">
+                    <h1 class="mb-4">Bid <span class="text-primary">Settings</span></h1>
+                    <p class="mb-5">Configure your default bidding parameters. These settings will be used to calculate your automated bids.</p>
+
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["Success"]</div>
+                    }
+
+                    <form method="post" action="@Url.Action("UpdateSettings", "Dashboard")">
+                        <div class="bg-light p-5 rounded">
+                            <h4 class="mb-4">Cost Structure</h4>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="LaborRate" class="form-label">Labor Rate ($/hour)</label>
+                                    <input type="number" step="0.01" class="form-control" id="LaborRate" name="LaborRate"
+                                           value="@Model.LaborRate" required>
+                                    <small class="text-muted">Your standard hourly labor rate</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="MaterialMargin" class="form-label">Material Margin (%)</label>
+                                    <input type="number" step="0.01" class="form-control" id="MaterialMargin" name="MaterialMargin"
+                                           value="@Model.MaterialMargin" required>
+                                    <small class="text-muted">Markup on material costs</small>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="TravelCost" class="form-label">Travel Cost ($)</label>
+                                    <input type="number" step="0.01" class="form-control" id="TravelCost" name="TravelCost"
+                                           value="@Model.TravelCost" required>
+                                    <small class="text-muted">Standard travel cost per project</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ProfitMargin" class="form-label">Profit Margin (%)</label>
+                                    <input type="number" step="0.01" class="form-control" id="ProfitMargin" name="ProfitMargin"
+                                           value="@Model.ProfitMargin" required>
+                                    <small class="text-muted">Your target profit margin</small>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="PreferredLocations" class="form-label">Preferred Locations</label>
+                                <textarea class="form-control" id="PreferredLocations" name="PreferredLocations"
+                                          rows="3" placeholder="Enter preferred locations separated by commas">@Model.PreferredLocations</textarea>
+                                <small class="text-muted">e.g., Downtown, Suburban, Industrial Area</small>
+                            </div>
+
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="AutoCalculateBids" name="AutoCalculateBids"
+                                       value="true" @(Model.AutoCalculateBids ? "checked" : "")>
+                                <label class="form-check-label" for="AutoCalculateBids">
+                                    Enable automatic bid calculations
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Save Settings</button>
+                        </div>
+                    </form>
+
+                    <!-- Bid Calculation Preview -->
+                    <div class="mt-5">
+                        <h4 class="mb-4">Bid Calculation Example</h4>
+                        <div class="bg-light p-4 rounded">
+                            <p>Based on your current settings, here's how a sample bid would be calculated:</p>
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <h5 class="text-primary">Labor</h5>
+                                    <p>$@Model.LaborRate × Hours</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 class="text-primary">Materials</h5>
+                                    <p>Cost + @Model.MaterialMargin%</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 class="text-primary">Travel</h5>
+                                    <p>$@Model.TravelCost</p>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 class="text-primary">Profit</h5>
+                                    <p>+ @Model.ProfitMargin%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

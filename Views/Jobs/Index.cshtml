@@ -1,0 +1,281 @@
+﻿@model List<ContractorDashboard.Models.Job>
+@{
+    ViewData["Title"] = "Available Jobs";
+}
+
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-6 mb-3">Available <span class="text-primary">Jobs</span></h1>
+                <p class="mb-0">Browse and bid on construction projects that match your expertise.</p>
+            </div>
+            <div class="col-lg-4 text-end">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search jobs..." id="jobSearch"
+                           autocomplete="off">
+                    <button class="btn btn-primary" type="button" id="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" type="button" id="clearSearch" style="display: none;">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div id="searchSuggestions" class="autocomplete-suggestions"></div>
+            </div>
+        </div>
+
+        <!-- Search Filters -->
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="d-flex flex-wrap gap-2" id="searchFilters">
+                    <select class="form-select form-select-sm" style="width: auto;" id="locationFilter">
+                        <option value="">All Locations</option>
+                        @foreach (var location in Model.Select(j => j.Location).Distinct().Take(5))
+                        {
+                            <option value="@location">@location</option>
+                        }
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;" id="jobTypeFilter">
+                        <option value="">All Types</option>
+                        @foreach (var type in Model.Select(j => j.JobType).Distinct())
+                        {
+                            <option value="@type">@type</option>
+                        }
+                    </select>
+                    <select class="form-select form-select-sm" style="width: auto;" id="budgetFilter">
+                        <option value="">Any Budget</option>
+                        <option value="low">Under $5,000</option>
+                        <option value="medium">$5,000 - $15,000</option>
+                        <option value="high">Over $15,000</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <!-- Success Message -->
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center py-5" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Searching jobs...</p>
+        </div>
+
+        <!-- Jobs Container - This was missing -->
+        <div id="jobsContainer">
+            @if (Model.Any())
+            {
+                <div class="row g-4">
+                    @foreach (var job in Model)
+                    {
+                        <div class="col-lg-6">
+                            <div class="job-card bg-white border rounded p-4 h-100">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <h4 class="mb-0">@job.Title</h4>
+                                    <span class="badge bg-primary">@job.JobType</span>
+                                </div>
+
+                                <p class="text-muted mb-3">@job.Description</p>
+
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <small class="text-muted"><i class="fa fa-map-marker-alt me-2"></i>@job.Location</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted"><i class="fa fa-dollar-sign me-2"></i>@job.BudgetRange</small>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <small class="text-muted"><i class="fa fa-clock me-2"></i>Posted @job.PostedDate.ToString("MMM dd, yyyy")</small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted"><i class="fa fa-hourglass me-2"></i>@job.EstimatedHours hours</small>
+                                    </div>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(job.RequiredMaterials))
+                                {
+                                    <div class="mb-3">
+                                        <small class="text-muted"><strong>Materials Needed:</strong> @job.RequiredMaterials</small>
+                                    </div>
+                                }
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="@Url.Action("Details", "Jobs", new { id = job.Id })" class="btn btn-outline-primary">View Details</a>
+                                    <button class="btn btn-primary calculate-bid" data-job-id="@job.Id">Calculate & Bid</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="fa fa-briefcase fa-5x text-muted mb-4"></i>
+                    <h3>No Jobs Available</h3>
+                    <p class="text-muted mb-4">There are currently no active jobs matching your criteria.</p>
+                    <a href="@Url.Action("Index", "Dashboard")" class="btn btn-primary">Return to Dashboard</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<!-- Bid Calculation Modal -->
+<div class="modal fade" id="bidModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Calculate & Submit Bid</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="jobInfo" class="mb-3 p-3 bg-light rounded">
+                    <h6 id="jobTitle" class="text-primary"></h6>
+                    <small class="text-muted" id="jobDetails"></small>
+                </div>
+
+                <form id="bidForm">
+                    <input type="hidden" id="jobId" name="jobId">
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="laborHours" class="form-label">Estimated Labor Hours</label>
+                                <input type="number" class="form-control" id="laborHours" value="0" min="0">
+                                <small class="text-muted">Based on job requirements</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="materialCost" class="form-label">Material Cost ($)</label>
+                                <input type="number" step="0.01" class="form-control" id="materialCost" value="0" min="0">
+                                <small class="text-muted">Estimated material expenses</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="laborRate" class="form-label">Labor Rate ($/hr)</label>
+                                <input type="number" step="0.01" class="form-control" id="laborRate" value="45.00" min="0">
+                                <small class="text-muted">Your standard hourly rate</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="profitMargin" class="form-label">Profit Margin (%)</label>
+                                <input type="number" step="0.01" class="form-control" id="profitMargin" value="20.00" min="0" max="100">
+                                <small class="text-muted">Your target profit margin</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="materialMargin" class="form-label">Material Margin (%)</label>
+                                <input type="number" step="0.01" class="form-control" id="materialMargin" value="15.00" min="0" max="100">
+                                <small class="text-muted">Markup on material costs</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="travelCost" class="form-label">Travel Cost ($)</label>
+                                <input type="number" step="0.01" class="form-control" id="travelCost" value="50.00" min="0">
+                                <small class="text-muted">Standard travel cost</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown -->
+                    <div class="mb-4 p-4 bg-light rounded">
+                        <h6 class="mb-3">Cost Breakdown</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>Labor Cost:</span>
+                                    <span>$<span id="laborCost">0.00</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>Material Cost:</span>
+                                    <span>$<span id="materialCostDisplay">0.00</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>Material Margin:</span>
+                                    <span>$<span id="materialMarginCost">0.00</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>Travel Cost:</span>
+                                    <span>$<span id="travelCostDisplay">0.00</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2 pt-2 border-top">
+                                <div class="d-flex justify-content-between">
+                                    <strong>Subtotal:</strong>
+                                    <strong>$<span id="subtotal">0.00</span></strong>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <span>Profit Margin:</span>
+                                    <span>$<span id="profitMarginCost">0.00</span></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2 pt-2 border-top">
+                                <div class="d-flex justify-content-between">
+                                    <strong>Total Bid:</strong>
+                                    <strong class="text-primary">$<span id="totalBid">0.00</span></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="bidAmount" class="form-label">Final Bid Amount ($)</label>
+                        <input type="number" step="0.01" class="form-control" id="bidAmount" name="bidAmount" required readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes (Optional)</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Add any additional notes about your bid..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitBid">Submit Bid</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/JavaScript.js"></script>
+}

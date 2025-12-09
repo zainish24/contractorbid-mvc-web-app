@@ -1,0 +1,572 @@
+﻿.autocomplete-suggestions {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1000;
+    display: none;
+    margin-top: 1px;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+    .suggestion-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .suggestion-item:last-child {
+        border-bottom: none;
+    }
+
+#searchFilters select {
+    min-width: 150px;
+}
+
+.job-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .job-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+/********** Admin Layout CSS **********/
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+    #spinner.show {
+        transition: opacity .5s ease-out, visibility 0s linear 0s;
+        visibility: visible;
+        opacity: 1;
+    }
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+/*** Button ***/
+.btn {
+    transition: .5s;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+/*** Admin Sidebar ***/
+.admin-sidebar {
+    background: #fff;
+    min-height: 100vh;
+    border-right: 1px solid #e9ecef;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.sidebar-brand {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+    background: var(--bs-primary);
+}
+
+    .sidebar-brand h4 {
+        color: white;
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+        font-family: "Space Grotesk", sans-serif;
+    }
+
+    .sidebar-brand small {
+        color: rgba(255,255,255,0.8);
+        font-size: 0.8rem;
+    }
+
+.nav-link {
+    color: #495057 !important;
+    padding: 1rem 1.5rem;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-bottom: 1px solid #f8f9fa;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 16px;
+}
+
+    .nav-link:hover {
+        color: var(--bs-primary) !important;
+        background: #f8f9fa;
+        border-left-color: var(--bs-primary);
+    }
+
+    .nav-link.active {
+        color: var(--bs-primary) !important;
+        background: #f8f9fa;
+        border-left-color: var(--bs-primary);
+        font-weight: 600;
+    }
+
+    .nav-link i {
+        width: 20px;
+        text-align: center;
+        color: #6c757d;
+    }
+
+    .nav-link.active i {
+        color: var(--bs-primary);
+    }
+
+/*** Admin Navbar ***/
+.admin-navbar {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.user-welcome {
+    color: #495057;
+    font-weight: 500;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.admin-content {
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.navbar-toggler {
+    border: 1px solid var(--bs-primary);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2813, 110, 253, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/*** Alerts ***/
+.alert {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 4px solid transparent;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.alert-success {
+    background: white;
+    color: #155724;
+    border-left-color: #198754;
+}
+
+.alert-danger {
+    background: white;
+    color: #721c24;
+    border-left-color: #dc3545;
+}
+
+/*** Buttons ***/
+.btn-primary {
+    background: var(--bs-primary);
+    border: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+        background: var(--bs-primary);
+    }
+
+.btn-outline-primary {
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+    font-family: "Space Grotesk", sans-serif;
+}
+
+    .btn-outline-primary:hover {
+        background: var(--bs-primary);
+        border-color: var(--bs-primary);
+    }
+
+/*** Dropdown ***/
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.dropdown-item {
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+    .dropdown-item:hover {
+        background: #f8f9fa;
+        color: var(--bs-primary);
+    }
+
+/*** Page Elements ***/
+.page-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.stats-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-left: 4px solid var(--bs-primary);
+    transition: all 0.3s ease;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+    .stats-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--bs-primary);
+    margin-bottom: 0.5rem;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.stats-label {
+    color: #6c757d;
+    font-weight: 500;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.stats-icon {
+    font-size: 2.5rem;
+    color: var(--bs-primary);
+    opacity: 0.7;
+}
+
+/*** Project Items (for job listings) ***/
+.project-item {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: .5s;
+}
+
+    .project-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+.project-overlay {
+    position: absolute;
+    padding: 25px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    background: linear-gradient(rgba(255, 255, 255, .1) 50%, var(--bs-dark));
+    z-index: 1;
+}
+
+/*** Service Items (for quick actions) ***/
+.service-item {
+    position: relative;
+    padding: 30px 25px;
+    transition: .5s;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+    .service-item.bg-primary:hover {
+        background: var(--bs-light) !important;
+    }
+
+    .service-item.bg-primary p {
+        color: var(--bs-light);
+        transition: .5s;
+    }
+
+    .service-item.bg-primary:hover p {
+        color: var(--bs-secondary);
+    }
+
+    .service-item.bg-light:hover {
+        background: var(--bs-primary) !important;
+    }
+
+    .service-item.bg-light p {
+        color: var(--bs-secondary);
+        transition: .5s;
+    }
+
+    .service-item.bg-light:hover p {
+        color: var(--bs-light);
+    }
+
+    .service-item .service-img h3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 12px 7px 0;
+    }
+
+    .service-item.bg-primary .service-img h3 {
+        background: var(--bs-primary);
+        color: var(--bs-white);
+        transition: .5s;
+    }
+
+    .service-item.bg-primary:hover .service-img h3 {
+        background: var(--bs-light);
+        color: var(--bs-dark);
+    }
+
+    .service-item.bg-light .service-img h3 {
+        background: var(--bs-light);
+        color: var(--bs-dark);
+        transition: .5s;
+    }
+
+    .service-item.bg-light:hover .service-img h3 {
+        background: var(--bs-primary);
+        color: var(--bs-white);
+    }
+
+/*** Team Items (for contractor cards) ***/
+.team-item {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: .5s;
+}
+
+    .team-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+.team-overlay {
+    position: absolute;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    background: linear-gradient(rgba(255, 255, 255, .1) 50%, var(--bs-dark));
+    z-index: 1;
+}
+
+    .team-overlay small {
+        display: inline-block;
+        padding: 3px 15px;
+        color: var(--bs-white);
+        background: var(--bs-primary);
+    }
+
+/*** Mobile sidebar styles ***/
+@media (max-width: 991.98px) {
+    .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 280px;
+        z-index: 1050;
+        transition: left 0.3s ease;
+    }
+
+        .admin-sidebar.show {
+            left: 0;
+        }
+
+    .admin-content {
+        margin-left: 0;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+
+    .nav-link {
+        margin-left: 0;
+        padding: 10px 1.5rem;
+    }
+}
+
+/*** Backdrop for mobile sidebar ***/
+.sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1040;
+    display: none;
+}
+
+    .sidebar-backdrop.show {
+        display: block;
+    }
+
+/*** Table Styles ***/
+.table {
+    font-family: "Space Grotesk", sans-serif;
+}
+
+    .table th {
+        font-weight: 600;
+        color: #2c3e50;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+.badge {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+}
+
+/*** Form Styles ***/
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    font-family: "Space Grotesk", sans-serif;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+.form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+/*** Card Styles ***/
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: "Space Grotesk", sans-serif;
+}
+
+.card-header {
+    background: white;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: "Space Grotesk", sans-serif;
+}
+
+/*** Responsive adjustments ***/
+@media (max-width: 768px) {
+    .admin-navbar {
+        padding: 10px 0;
+    }
+
+    .user-welcome {
+        font-size: 14px;
+    }
+
+    .stats-card {
+        padding: 1rem;
+    }
+
+    .stats-number {
+        font-size: 1.5rem;
+    }
+
+    .stats-icon {
+        font-size: 2rem;
+    }
+}
+
+/*** Animation classes for WOW.js ***/
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+

@@ -1,0 +1,130 @@
+﻿@model ContractorDashboard.Models.Job
+@{
+    ViewData["Title"] = "Job Details";
+}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <div class="wow fadeIn" data-wow-delay="0.1s">
+                    <!-- Job Header -->
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <h1 class="mb-2">@Model.Title</h1>
+                            <div class="d-flex gap-3 mb-3">
+                                <span class="badge bg-primary">@Model.JobType</span>
+                                <span class="badge bg-success">@Model.Status</span>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <h4 class="text-primary">@Model.BudgetRange</h4>
+                            <small class="text-muted">Budget Range</small>
+                        </div>
+                    </div>
+
+                    <!-- Job Details -->
+                    <div class="bg-light p-4 rounded mb-4">
+                        <h4 class="mb-3">Project Description</h4>
+                        <p class="mb-0">@Model.Description</p>
+                    </div>
+
+                    <!-- Project Specifications -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 bg-primary text-white rounded p-3 me-3">
+                                    <i class="fa fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Location</h6>
+                                    <p class="mb-0">@Model.Location</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 bg-primary text-white rounded p-3 me-3">
+                                    <i class="fa fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Estimated Hours</h6>
+                                    <p class="mb-0">@(Model.EstimatedHours?.ToString() ?? "Not specified") hours</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 bg-primary text-white rounded p-3 me-3">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Posted Date</h6>
+                                    <p class="mb-0">@Model.PostedDate.ToString("MMMM dd, yyyy")</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 bg-primary text-white rounded p-3 me-3">
+                                    <i class="fa fa-hourglass-end"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">Deadline</h6>
+                                    <p class="mb-0">@(Model.Deadline?.ToString("MMMM dd, yyyy") ?? "Flexible")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Required Materials -->
+                    @if (!string.IsNullOrEmpty(Model.RequiredMaterials))
+                    {
+                        <div class="bg-light p-4 rounded mb-4">
+                            <h4 class="mb-3">Required Materials</h4>
+                            <p class="mb-0">@Model.RequiredMaterials</p>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Bid Action Sidebar -->
+            <div class="col-lg-4">
+                <div class="wow fadeIn" data-wow-delay="0.3s">
+                    <div class="bg-primary text-white p-4 rounded mb-4">
+                        <h4 class="text-white mb-3">Submit Your Bid</h4>
+                        <p class="mb-4">Ready to work on this project? Submit your competitive bid now.</p>
+
+                        <form method="post" action="@Url.Action("SubmitBid", "Jobs")">
+                            <input type="hidden" name="jobId" value="@Model.Id">
+                            <div class="mb-3">
+                                <label for="bidAmount" class="form-label text-white">Bid Amount ($)</label>
+                                <input type="number" step="0.01" class="form-control" id="bidAmount" name="bidAmount"
+                                       placeholder="Enter your bid amount" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="notes" class="form-label text-white">Additional Notes</label>
+                                <textarea class="form-control" id="notes" name="notes" rows="3"
+                                          placeholder="Any special considerations or notes..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-light btn-lg w-100">
+                                <i class="fa fa-paper-plane me-2"></i>Submit Bid
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Quick Tips -->
+                    <div class="bg-light p-4 rounded">
+                        <h5 class="mb-3">Bidding Tips</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fa fa-check text-primary me-2"></i>Consider all material costs</li>
+                            <li class="mb-2"><i class="fa fa-check text-primary me-2"></i>Factor in labor hours accurately</li>
+                            <li class="mb-2"><i class="fa fa-check text-primary me-2"></i>Include travel and equipment costs</li>
+                            <li class="mb-0"><i class="fa fa-check text-primary me-2"></i>Add reasonable profit margin</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

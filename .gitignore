@@ -1,0 +1,7 @@
+bin/
+obj/
+appsettings.Development.json
+.vs/
+*.user
+*.suo
+*.sh

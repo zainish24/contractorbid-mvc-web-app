@@ -1,0 +1,360 @@
+﻿@model ContractorDashboard.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="container-fluid pb-5 hero-header bg-light mb-5">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-1 mb-4 animated slideInRight">Admin <span class="text-primary">Dashboard</span></h1>
+                    <h5 class="d-inline-block border border-2 border-white py-3 px-5 mb-0 animated slideInRight">
+                        Manage Your Contractors & Jobs
+                    </h5>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                                    <i class="fas fa-users text-primary"></i>
+                                </div>
+                                <h5 class="lh-base mb-0">Contractor Management</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                                    <i class="fas fa-briefcase text-primary"></i>
+                                </div>
+                                <h5 class="lh-base mb-0">Job Management</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                                    <i class="fas fa-paper-plane text-primary"></i>
+                                </div>
+                                <h5 class="lh-base mb-0">Bid Management</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 wow fadeIn" data-wow-delay="0.7s">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-square border border-2 border-white me-3">
+                                    <i class="fas fa-chart-line text-primary"></i>
+                                </div>
+                                <h5 class="lh-base mb-0">Performance Analytics</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="container py-5">
+        <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+            <h1 class="mb-5">Dashboard <span class="text-uppercase text-primary bg-light px-2">Overview</span></h1>
+        </div>
+
+        <!-- Platform Overview Stats -->
+        <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="card bg-light h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0 text-primary">@Model.Stats.TotalContractors</h2>
+                                <p class="mb-0">Total Contractors</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-primary" style="width: 70px; height: 70px;">
+                                <i class="fas fa-users fa-2x text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.3s">
+                <div class="card bg-light h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0 text-primary">@Model.Stats.TotalJobs</h2>
+                                <p class="mb-0">Total Jobs</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-primary" style="width: 70px; height: 70px;">
+                                <i class="fas fa-briefcase fa-2x text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="card bg-light h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0 text-primary">@Model.Stats.TotalBids</h2>
+                                <p class="mb-0">Total Bids</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-primary" style="width: 70px; height: 70px;">
+                                <i class="fas fa-paper-plane fa-2x text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.7s">
+                <div class="card bg-light h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0 text-primary">@Model.Stats.PendingJobs</h2>
+                                <p class="mb-0">Active Jobs</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-primary" style="width: 70px; height: 70px;">
+                                <i class="fas fa-clock fa-2x text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bid Status Stats -->
+        <div class="row g-4 mb-5">
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="card bg-success text-white h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0">@Model.Stats.AcceptedBids</h2>
+                                <p class="mb-0">Accepted Bids</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-white" style="width: 70px; height: 70px;">
+                                <i class="fas fa-check-circle fa-2x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.3s">
+                <div class="card bg-warning text-white h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0">@Model.Stats.PendingBids</h2>
+                                <p class="mb-0">Pending Bids</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-white" style="width: 70px; height: 70px;">
+                                <i class="fas fa-clock fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="card bg-danger text-white h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0">@Model.Stats.RejectedBids</h2>
+                                <p class="mb-0">Rejected Bids</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-white" style="width: 70px; height: 70px;">
+                                <i class="fas fa-times-circle fa-2x text-danger"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 wow fadeIn" data-wow-delay="0.7s">
+                <div class="card bg-info text-white h-100 border-0">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h2 class="mb-0">@Model.Stats.UnderReviewBids</h2>
+                                <p class="mb-0">Under Review</p>
+                            </div>
+                            <div class="flex-shrink-0 btn-square bg-white" style="width: 70px; height: 70px;">
+                                <i class="fas fa-search fa-2x text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="container-fluid bg-light py-5">
+        <div class="container py-5">
+            <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+                <h1 class="mb-5">Quick <span class="text-uppercase text-primary bg-white px-2">Actions</span></h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="service-item h-100 d-flex flex-column justify-content-center bg-white text-center p-4 border">
+                        <div class="service-icon mb-4">
+                            <i class="fas fa-plus fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">Add New Job</h4>
+                        <p class="mb-4">Create a new job posting for contractors to bid on.</p>
+                        <a href="@Url.Action("AddJob", "Admin")" class="btn btn-primary px-4">Add Job</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
+                    <div class="service-item h-100 d-flex flex-column justify-content-center bg-white text-center p-4 border">
+                        <div class="service-icon mb-4">
+                            <i class="fas fa-briefcase fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">Manage Jobs</h4>
+                        <p class="mb-4">View, edit, and manage all job postings.</p>
+                        <a href="@Url.Action("Jobs", "Admin")" class="btn btn-outline-primary px-4">View Jobs</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="service-item h-100 d-flex flex-column justify-content-center bg-white text-center p-4 border">
+                        <div class="service-icon mb-4">
+                            <i class="fas fa-users fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">View Contractors</h4>
+                        <p class="mb-4">Browse and manage registered contractors.</p>
+                        <a href="@Url.Action("Contractors", "Admin")" class="btn btn-outline-primary px-4">View Contractors</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                    <div class="service-item h-100 d-flex flex-column justify-content-center bg-white text-center p-4 border">
+                        <div class="service-icon mb-4">
+                            <i class="fas fa-paper-plane fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="mb-3">Manage Bids</h4>
+                        <p class="mb-4">Review and manage all contractor bids.</p>
+                        <a href="@Url.Action("Bids", "Admin")" class="btn btn-outline-primary px-4">View Bids</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <!-- Recent Jobs -->
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-between align-items-center mb-4 wow fadeIn" data-wow-delay="0.1s">
+                        <h3 class="mb-0">Recent <span class="text-primary">Jobs</span></h3>
+                        <a href="@Url.Action("Jobs", "Admin")" class="btn btn-sm btn-primary">View All</a>
+                    </div>
+
+                    @if (Model.RecentJobs.Any())
+                    {
+                        <div class="row g-3">
+                            @foreach (var job in Model.RecentJobs)
+                            {
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.2s">
+                                    <div class="project-item position-relative overflow-hidden bg-light h-100 border rounded">
+                                        <div class="p-4">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h5 class="mb-1">@job.Title</h5>
+                                                <span class="badge bg-primary">@job.Status</span>
+                                            </div>
+                                            <p class="mb-2 text-muted"><i class="fa fa-map-marker-alt text-primary me-2"></i>@job.Location</p>
+                                            <p class="mb-2 text-muted"><i class="fa fa-dollar-sign text-primary me-2"></i>@job.BudgetRange</p>
+                                            <p class="mb-3 text-muted"><i class="fa fa-calendar text-primary me-2"></i>@job.PostedDate.ToString("MMM dd, yyyy")</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">Posted @((DateTime.Now - job.PostedDate).Days) days ago</small>
+                                                <a href="@Url.Action("EditJob", "Admin", new { id = job.Id })"
+                                                   class="btn btn-sm btn-outline-primary">Manage</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4 wow fadeIn" data-wow-delay="0.1s">
+                            <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                            <h5 class="mb-2">No Jobs Yet</h5>
+                            <p class="text-muted mb-3">Start by adding your first job posting.</p>
+                            <a href="@Url.Action("AddJob", "Admin")" class="btn btn-primary btn-sm">Add Job</a>
+                        </div>
+                    }
+                </div>
+
+                <!-- Recent Bids -->
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-between align-items-center mb-4 wow fadeIn" data-wow-delay="0.1s">
+                        <h3 class="mb-0">Recent <span class="text-primary">Bids</span></h3>
+                        <a href="@Url.Action("Bids", "Admin")" class="btn btn-sm btn-primary">View All</a>
+                    </div>
+
+                    @if (Model.RecentBids.Any())
+                    {
+                        <div class="row g-3">
+                            @foreach (var bid in Model.RecentBids)
+                            {
+                                <div class="col-12 wow fadeIn" data-wow-delay="0.2s">
+                                    <div class="project-item position-relative overflow-hidden bg-light h-100 border rounded">
+                                        <div class="p-4">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h6 class="mb-1">@bid.Job?.Title</h6>
+                                                @{
+                                                    var statusClass = bid.Status switch
+                                                    {
+                                                        "Submitted" => "bg-warning",
+                                                        "UnderReview" => "bg-info",
+                                                        "Accepted" => "bg-success",
+                                                        "Rejected" => "bg-danger",
+                                                        _ => "bg-secondary"
+                                                    };
+                                                }
+                                                <span class="badge @statusClass">@bid.Status</span>
+                                            </div>
+                                            <p class="mb-2 text-muted">
+                                                <i class="fas fa-user text-primary me-2"></i>@bid.Contractor?.CompanyName
+                                            </p>
+                                            <p class="mb-2 text-muted">
+                                                <i class="fas fa-dollar-sign text-primary me-2"></i>@bid.BidAmount.ToString("N2")
+                                            </p>
+                                            <p class="mb-3 text-muted">
+                                                <i class="fas fa-calendar text-primary me-2"></i>@bid.SubmittedDate.ToString("MMM dd, yyyy")
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <small class="text-muted">Submitted @((DateTime.Now - bid.SubmittedDate).Days) days ago</small>
+                                                <a href="@Url.Action("Bids", "Admin")"
+                                                   class="btn btn-sm @(bid.Status == "Submitted" ? "btn-outline-success" : "btn-outline-primary")">
+                                                    Review
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4 wow fadeIn" data-wow-delay="0.1s">
+                            <i class="fas fa-paper-plane fa-3x text-muted mb-3"></i>
+                            <h5 class="mb-2">No Bids Yet</h5>
+                            <p class="text-muted mb-3">Bids will appear here once contractors start submitting.</p>
+                            <a href="@Url.Action("Jobs", "Admin")" class="btn btn-primary btn-sm">View Jobs</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new WOW().init();
+</script>

@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Login - ContractorBid";
+}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="bg-light p-5 rounded wow fadeIn" data-wow-delay="0.1s">
+                    <h1 class="mb-4 text-center">Welcome to <span class="text-primary">ContractorBid</span></h1>
+                    <p class="text-center text-muted mb-4">Login to your account</p>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+
+                    <form method="post" action="@Url.Action("Login", "Auth")">
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required
+                                   placeholder="Enter your email">
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required
+                                   placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3">Login to Platform</button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="mb-2">Are you a contractor?</p>
+                        <a href="@Url.Action("Register", "Auth")" class="text-primary">Register as Contractor</a>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Admin? Use your admin credentials to access the admin panel.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

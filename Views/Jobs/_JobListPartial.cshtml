@@ -1,0 +1,59 @@
+﻿@model List<ContractorDashboard.Models.Job>
+
+@if (Model.Any())
+{
+    <div class="row g-4">
+        @foreach (var job in Model)
+        {
+            <div class="col-lg-6">
+                <div class="job-card bg-white border rounded p-4 h-100">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="mb-0">@job.Title</h4>
+                        <span class="badge bg-primary">@job.JobType</span>
+                    </div>
+
+                    <p class="text-muted mb-3">@job.Description</p>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <small class="text-muted"><i class="fa fa-map-marker-alt me-2"></i>@job.Location</small>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted"><i class="fa fa-dollar-sign me-2"></i>@job.BudgetRange</small>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <small class="text-muted"><i class="fa fa-clock me-2"></i>Posted @job.PostedDate.ToString("MMM dd, yyyy")</small>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted"><i class="fa fa-hourglass me-2"></i>@job.EstimatedHours hours</small>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(job.RequiredMaterials))
+                    {
+                        <div class="mb-3">
+                            <small class="text-muted"><strong>Materials Needed:</strong> @job.RequiredMaterials</small>
+                        </div>
+                    }
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="@Url.Action("Details", "Jobs", new { id = job.Id })" class="btn btn-outline-primary">View Details</a>
+                        <button class="btn btn-primary calculate-bid" data-job-id="@job.Id">Calculate & Bid</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fa fa-briefcase fa-5x text-muted mb-4"></i>
+        <h3>No Jobs Found</h3>
+        <p class="text-muted mb-4">No jobs match your search criteria. Try different keywords.</p>
+        <button class="btn btn-primary" onclick="clearSearch()">Clear Search</button>
+    </div>
+}

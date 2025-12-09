@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Contractor Registration";
+}
+
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="bg-light p-5 rounded wow fadeIn" data-wow-delay="0.1s">
+                    <h1 class="mb-4 text-center">Contractor <span class="text-primary">Registration</span></h1>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger">@ViewBag.Error</div>
+                    }
+
+                    <form method="post" action="@Url.Action("Register", "Auth")">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="companyName" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="companyName" name="companyName" required
+                                       placeholder="Your company name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" required
+                                       placeholder="your@email.com">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required
+                                       placeholder="Create password">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone"
+                                       placeholder="+1 234 567 8900">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3">Create Account</button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p>Already have an account? <a href="@Url.Action("Login", "Auth")" class="text-primary">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"] - ContractorBid Admin</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Space+Grotesk&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+         style="z-index: 9999;">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+    <!-- Mobile Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <!-- Sidebar Start -->
+            <div class="col-lg-2 admin-sidebar d-none d-lg-block">
+                <div class="sidebar-brand">
+                    <h4 class="mb-1">ContractorBid</h4>
+                    <small>Admin Panel</small>
+                </div>
+
+                <ul class="nav flex-column mt-4">
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Dashboard" ? "active" : "")"
+                           href="@Url.Action("Dashboard", "Admin")">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Jobs" || ViewContext.RouteData.Values["action"].ToString() == "AddJob" || ViewContext.RouteData.Values["action"].ToString() == "EditJob" ? "active" : "")"
+                           href="@Url.Action("Jobs", "Admin")">
+                            <i class="fas fa-briefcase me-2"></i>Manage Jobs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Contractors" ? "active" : "")"
+                           href="@Url.Action("Contractors", "Admin")">
+                            <i class="fas fa-users me-2"></i>Contractors
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Bids" ? "active" : "")"
+                           href="@Url.Action("Bids", "Admin")">
+                            <i class="fas fa-paper-plane me-2"></i>Bids
+                        </a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="@Url.Action("Logout", "Auth")">
+                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Sidebar End -->
+            <!-- Main Content Start -->
+            <div class="col-lg-10 admin-content">
+                <!-- Top Navbar Start -->
+                <nav class="navbar navbar-expand-lg admin-navbar">
+                    <div class="container-fluid px-4">
+                        <button class="navbar-toggler d-lg-none me-3" type="button" id="sidebarToggle">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="d-none d-lg-block">
+                            <h4 class="mb-0 text-dark">@ViewData["Title"]</h4>
+                        </div>
+
+                        <div class="navbar-nav ms-auto align-items-center">
+                            <div class="user-welcome me-3 d-none d-md-block">
+                                <i class="fas fa-user-circle me-2 text-primary"></i>Welcome, @User.Identity.Name
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i class="fas fa-cog me-1"></i>Settings
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item text-danger" href="@Url.Action("Logout", "Auth")"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Top Navbar End -->
+                <!-- Mobile Sidebar -->
+                <div class="admin-sidebar d-lg-none position-fixed" id="mobileSidebar" style="z-index: 1050;">
+                    <div class="sidebar-brand">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="mb-1">ContractorBid</h4>
+                                <small>Admin Panel</small>
+                            </div>
+                            <button type="button" class="btn-close btn-close-white" id="closeSidebar"></button>
+                        </div>
+                    </div>
+                    <ul class="nav flex-column mt-3">
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Dashboard" ? "active" : "")"
+                               href="@Url.Action("Dashboard", "Admin")">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Jobs" || ViewContext.RouteData.Values["action"].ToString() == "AddJob" || ViewContext.RouteData.Values["action"].ToString() == "EditJob" ? "active" : "")"
+                               href="@Url.Action("Jobs", "Admin")">
+                                <i class="fas fa-briefcase me-2"></i>Manage Jobs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Contractors" ? "active" : "")"
+                               href="@Url.Action("Contractors", "Admin")">
+                                <i class="fas fa-users me-2"></i>Contractors
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Bids" ? "active" : "")"
+                               href="@Url.Action("Bids", "Admin")">
+                                <i class="fas fa-paper-plane me-2"></i>Bids
+                            </a>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="@Url.Action("Logout", "Auth")">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Page Content Start -->
+                <main class="p-4">
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center mb-4" role="alert">
+                            <i class="fas fa-check-circle me-2 fa-lg"></i>
+                            <div class="flex-grow-1">@TempData["Success"]</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center mb-4" role="alert">
+                            <i class="fas fa-exclamation-circle me-2 fa-lg"></i>
+                            <div class="flex-grow-1">@TempData["Error"]</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    @RenderBody()
+                </main>
+                <!-- Page Content End -->
+            </div>
+            <!-- Main Content End -->
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/wow/wow.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/waypoints/waypoints.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/js/JavaScript.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+
+    <script>
+        // Initialize animations
+        new WOW().init();
+
+        // Remove spinner when page loads
+        $(document).ready(function () {
+            $('#spinner').fadeOut(500);
+        });
+
+        // Auto-hide alerts after 5 seconds
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.alert').fadeTo(500, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 5000);
+        });
+
+        // Mobile sidebar functionality
+        $(document).ready(function() {
+            const sidebarToggle = $('#sidebarToggle');
+            const mobileSidebar = $('#mobileSidebar');
+            const sidebarBackdrop = $('#sidebarBackdrop');
+            const closeSidebar = $('#closeSidebar');
+
+            sidebarToggle.on('click', function() {
+                mobileSidebar.addClass('show');
+                sidebarBackdrop.addClass('show');
+                $('body').css('overflow', 'hidden');
+            });
+
+            function closeMobileSidebar() {
+                mobileSidebar.removeClass('show');
+                sidebarBackdrop.removeClass('show');
+                $('body').css('overflow', 'auto');
+            }
+
+            closeSidebar.on('click', closeMobileSidebar);
+            sidebarBackdrop.on('click', closeMobileSidebar);
+
+            // Close sidebar when clicking on a link (for mobile)
+            mobileSidebar.find('.nav-link').on('click', function() {
+                if ($(window).width() < 992) {
+                    closeMobileSidebar();
+                }
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

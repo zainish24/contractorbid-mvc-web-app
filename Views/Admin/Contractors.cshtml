@@ -1,0 +1,105 @@
+﻿@model List<ContractorDashboard.Models.Contractor>
+@{
+    ViewData["Title"] = "Contractors";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h3 mb-2">All <span class="text-primary">Contractors</span></h1>
+                    <p class="text-muted mb-0">Manage registered contractors and their profiles</p>
+                </div>
+                <div class="text-muted">
+                    <i class="fas fa-users me-2"></i>@Model.Count Registered
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contractors Grid -->
+    <div class="row">
+        @if (Model.Any())
+        {
+            foreach (var contractor in Model)
+            {
+                <div class="col-xl-4 col-lg-6 mb-4">
+                    <div class="card wow fadeIn" data-wow-delay="0.1s">
+                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                            <h6 class="card-title mb-0">@contractor.CompanyName</h6>
+                            <span class="badge bg-primary">@contractor.Bids.Count Bids</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <p class="mb-2">
+                                        <i class="fas fa-envelope text-primary me-2"></i>
+                                        <strong>Email:</strong> @contractor.Email
+                                    </p>
+                                    @if (!string.IsNullOrEmpty(contractor.Phone))
+                                    {
+                                        <p class="mb-2">
+                                            <i class="fas fa-phone text-primary me-2"></i>
+                                            <strong>Phone:</strong> @contractor.Phone
+                                        </p>
+                                    }
+                                    <p class="mb-0">
+                                        <i class="fas fa-calendar text-primary me-2"></i>
+                                        <strong>Registered:</strong> @contractor.CreatedAt.ToString("MMM dd, yyyy")
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Bid Statistics -->
+                            <div class="border-top pt-3">
+                                <h6 class="text-muted mb-2">Bid Activity:</h6>
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <small class="text-muted">Total</small>
+                                        <div class="h6 mb-0 text-primary">@contractor.Bids.Count</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <small class="text-muted">Accepted</small>
+                                        <div class="h6 mb-0 text-success">@contractor.Bids.Count(b => b.Status == "Accepted")</div>
+                                    </div>
+                                    <div class="col-4">
+                                        <small class="text-muted">Pending</small>
+                                        <div class="h6 mb-0 text-warning">@contractor.Bids.Count(b => b.Status == "Submitted" || b.Status == "UnderReview")</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">
+                                    Member for @((DateTime.UtcNow - contractor.CreatedAt).Days) days
+                                </small>
+                                <a href="@Url.Action("Bids", "Admin")" class="btn btn-sm btn-outline-primary">
+                                    View Bids
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center py-5">
+                        <i class="fas fa-users fa-4x text-muted mb-4"></i>
+                        <h4>No Contractors Yet</h4>
+                        <p class="text-muted mb-4">Contractors will appear here once they register on the platform.</p>
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-external-link-alt me-2"></i>View Public Site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
